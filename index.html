@@ -1,0 +1,226 @@
+<html>
+
+<body style="background-color:lightGreen;">
+
+<h1
+style="color:seaGreen; 
+background-color:lightGrey; 
+text-align:center;
+text-shadow: 2px 1px darkGrey; 
+font-family: Arial;
+font-weight: bold;
+font-size: 5em;
+border-radius: 15px;
+margin-bottom: 0"
+> 
+Escape the Coronavirus! 
+</h1>
+
+<p id = "timer" 
+style = "font-size: 2em; 
+color: fireBrick;
+margin: 0"
+>
+</p>
+
+<img id = "puzzleImage" src = "start.jpg"
+style = "width: 100%"
+>
+</img>
+
+<p>
+</p>
+
+<button id = "startButton"
+style="color:SeaGreen;
+background-color:lightGrey;
+text-align:center;
+font-family: Arial;
+font-size: 2em;
+border-radius: 10px;"
+onclick="startPuzzle()"
+> 
+Click here to start the puzzles.
+</button>
+
+<p id="test"></p>
+
+<script>
+var timeMinutes = 0;
+var timeSeconds = 0;
+var timeHours = 0;
+var started = 0;
+var completion = 0;
+
+function startPuzzle () {
+started = 1;
+document.getElementById("startButton").style.display = "none";
+
+document.getElementById("puzzleImage").setAttribute("src",images[puzzle]);
+
+var hint1Button = document.createElement("BUTTON");
+hint1Button.innerHTML = "Click for a hint. There will be a time penalty of 10 minutes.";
+hint1Button.setAttribute("style", "color:SeaGreen; background-color:lightGrey; text-align:center; font-family: Arial; font-size: 1.5em; border-radius: 10px;");
+hint1Button.setAttribute("onclick", "hint1()");
+hint1Button.id = "hb1";
+document.body.appendChild(hint1Button);
+
+var hint1Answer = document.createElement("P");
+hint1Answer.id = "hintNo1";
+document.body.appendChild(hint1Answer);
+
+var hint2Button = document.createElement("BUTTON");
+hint2Button.innerHTML = "Click for a hint. There will be a time penalty of 5 minutes.";
+hint2Button.setAttribute("style", "color:SeaGreen; background-color:lightGrey; text-align:center; font-family: Arial; font-size: 1.5em; border-radius: 10px;");
+hint2Button.setAttribute("onclick", "hint2()");
+hint2Button.id = "hb2";
+document.body.appendChild(hint2Button);
+
+var hint2Answer = document.createElement("P");
+hint2Answer.id = "hintNo2";
+document.body.appendChild(hint2Answer);
+
+var answerButton = document.createElement("BUTTON");
+answerButton.innerHTML = "Click to type in your answer.";
+answerButton.setAttribute("style", "color:SeaGreen; background-color:lightGrey; text-align:center; font-family: Arial; font-size: 2em; border-radius: 10px;");
+answerButton.setAttribute("onclick", "answerBox()");
+answerButton.id = "ans";
+document.body.appendChild(answerButton);
+
+var wrongMessage = document.createElement("P");
+wrongMessage.id ="wm";
+document.body.appendChild(wrongMessage);
+}
+
+setInterval(timer,1000)
+
+function timer() {
+if (started == 1 && completion == 0)
+{
+timeSeconds++;
+if (timeSeconds == 60) {
+timeMinutes++;
+timeSeconds = 0;
+}
+if (timeMinutes == 60) {
+timeHours++;
+timeMinutes = 0;
+}
+if (timeHours == 0) 
+	{
+	if (timeMinutes < 10) 
+		{
+		if (timeSeconds < 10) 
+			{
+			document.getElementById("timer").innerHTML = "Time taken: 0" + timeMinutes + ":" + "0" + timeSeconds;
+			} else 
+			{
+			document.getElementById("timer").innerHTML = "Time taken: 0" + timeMinutes + ":" + timeSeconds;
+			}
+		} else 
+		{
+		if (timeSeconds < 10)
+			{
+			document.getElementById("timer").innerHTML = "Time taken: " + timeMinutes + ":" + "0" + timeSeconds;
+			} else 
+			{
+			document.getElementById("timer").innerHTML = "Time taken: " + timeMinutes + ":" + timeSeconds;
+			}
+		}
+	} else 
+	{
+	if (timeMinutes < 10) 
+		{
+		if (timeSeconds < 10) 
+			{
+			document.getElementById("timer").innerHTML = "Time taken:" + timeHours + ":0" + timeMinutes + ":" + "0" + timeSeconds;
+			} else 
+			{
+			document.getElementById("timer").innerHTML = "Time taken:" + timeHours + ":0" + timeMinutes + ":" + timeSeconds;
+			}
+		} else 
+		{
+		if (timeSeconds < 10)
+			{
+			document.getElementById("timer").innerHTML = "Time taken: " + timeHours + ":" + timeMinutes + ":" + "0" + timeSeconds;
+			} else 
+			{
+			document.getElementById("timer").innerHTML = "Time taken: " + timeHours + ":" + timeMinutes + ":" + timeSeconds;
+			}
+		}
+	}
+}
+}
+
+var puzzle = 0;
+var clickedHint1 = 0;
+var clickedHint2 = 0;
+var images = ["puzzle1.jpg", "puzzle2.jpg", "puzzle3.jpg", "puzzle4.jpg", "puzzle5.jpg", "puzzle6.jpg", "puzzle7.jpg", "puzzle8.jpg", "puzzle9.jpg", "puzzle10.jpg"];
+var firstHint = ["Look at the first letters.", "continue the pattern", "Think of every second letter as lowercase", "black dot means correct letter and correct position, white dot means correct letter but wrong position", "cover the bottom half and imagine what should be there", "some of the elements are used more than once to make a chemical", "spot the differences and notice their positions", "which letters are exactly two metres apart", "draw it on paper or print it and fold the paper", "Get out your periodic table."];
+var secondHint = ["Write the country names in order.", "ACGAUA", "Look at the periodic table", "the first letter is T", "the H, C and O are correct", "It is a sort of anagram which ends ...ate (6 letters, 9 letters)", "what letter?", "find 4 letters that make a word", "fold on the dotted lines to remove the middle sections", "look at the atomic numbers"];
+var puzzleAnswers = ["global", "ua", "silver", "trial", "china", "copper carbonate", "f", "safe", "look", "vaccine"];
+
+function hint1 () {
+if (clickedHint1 > 0) 
+{
+alert("You have already used this hint.");
+} else {
+clickedHint1++;
+document.getElementById("hintNo1").append(firstHint[puzzle]);
+if (timeMinutes < 50) {
+timeMinutes = timeMinutes + 10;
+} else {
+timeHours++;
+timeMinutes = timeMinutes - 50;
+}
+}
+}
+
+function hint2 () {
+if (clickedHint1 == 0) 
+{
+alert("Please use Hint 1 before looking at Hint 2.");
+} else {
+if (clickedHint2 > 0) {
+alert("You have already used this hint.");
+} else {
+clickedHint2++;
+document.getElementById("hintNo2").append(secondHint[puzzle]);
+if (timeMinutes < 55) {
+timeMinutes = timeMinutes + 5;
+} else {
+timeHours++;
+timeMinutes = timeMinutes - 55;
+}
+}
+}
+}
+
+function answerBox() {
+var input = prompt("Type in your answer.");
+var answer = input.toLowerCase().trim();
+if (answer == puzzleAnswers[puzzle]) {
+if (puzzle < 9)
+{
+puzzle++;
+clickedHint1 = 0;
+clickedHint2 = 0;
+document.getElementById("puzzleImage").setAttribute("src",images[puzzle]);
+document.getElementById("hintNo1").innerHTML = "";
+document.getElementById("hintNo2").innerHTML = "";
+document.getElementById("wm").innerHTML = "";
+} else {
+completion = 1;
+document.getElementById("hb1").remove();
+document.getElementById("hb2").remove();
+document.getElementById("ans").remove();
+document.getElementById("puzzleImage").setAttribute("src","Endpage.jpg"); 
+}
+} else {
+document.getElementById("wm").innerHTML = "Wrong, please try again.";
+}
+}
+</script>
+
+</body>
+</html>
