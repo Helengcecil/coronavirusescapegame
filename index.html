@@ -11,7 +11,7 @@ font-family: Arial;
 font-weight: bold;
 font-size: 5em;
 border-radius: 15px;
-margin-bottom: 0"
+margin-bottom: 10px"
 > 
 Escape the Coronavirus! 
 </h1>
@@ -67,6 +67,7 @@ document.body.appendChild(hint1Button);
 
 var hint1Answer = document.createElement("P");
 hint1Answer.id = "hintNo1";
+hint1Answer.setAttribute("style", "font-size: 1.5em;");
 document.body.appendChild(hint1Answer);
 
 var hint2Button = document.createElement("BUTTON");
@@ -78,6 +79,7 @@ document.body.appendChild(hint2Button);
 
 var hint2Answer = document.createElement("P");
 hint2Answer.id = "hintNo2";
+hint2Answer.setAttribute("style", "font-size: 1.5em;");
 document.body.appendChild(hint2Answer);
 
 var answerButton = document.createElement("BUTTON");
@@ -87,8 +89,9 @@ answerButton.setAttribute("onclick", "answerBox()");
 answerButton.id = "ans";
 document.body.appendChild(answerButton);
 
-var wrongMessage = document.createElement("P");
+var wrongMessage = document.createElement("SPAN");
 wrongMessage.id ="wm";
+wrongMessage.setAttribute("style", "font-size: 2em;");
 document.body.appendChild(wrongMessage);
 }
 
